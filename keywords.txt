@@ -1,61 +1,101 @@
 #######################################
-# Syntax Coloring Map For LIS2DW12
+# Syntax Coloring Map For LIS2DUXS12
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-LIS2DW12Sensor	KEYWORD1
+LIS2DUXS12Sensor	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-begin	KEYWORD2
-end	KEYWORD2
-Enable_X						KEYWORD2
-Disable_X						KEYWORD2
-ReadID							KEYWORD2
-Get_X_Axes						KEYWORD2
-Get_X_Sensitivity				KEYWORD2
-Get_X_AxesRaw					KEYWORD2
-Get_X_ODR						KEYWORD2
-Set_X_ODR						KEYWORD2
-Set_X_ODR_With_Mode				KEYWORD2
-Get_X_FS						KEYWORD2
-Set_X_FS						KEYWORD2
-Enable_Wake_Up_Detection		KEYWORD2
-Disable_Wake_Up_Detection		KEYWORD2
-Set_Wake_Up_Threshold			KEYWORD2
-Set_Wake_Up_Duration			KEYWORD2
-Enable_Inactivity_Detection		KEYWORD2
-Disable_Inactivity_Detection	KEYWORD2
-Set_Sleep_Duration				KEYWORD2
-Enable_6D_Orientation			KEYWORD2
-Disable_6D_Orientation			KEYWORD2
-Set_6D_Orientation_Threshold	KEYWORD2
-Get_6D_Orientation_XL			KEYWORD2
-Get_6D_Orientation_XH			KEYWORD2
-Get_6D_Orientation_YL			KEYWORD2
-Get_6D_Orientation_YH			KEYWORD2
-Get_6D_Orientation_ZL			KEYWORD2
-Get_6D_Orientation_ZH			KEYWORD2
-Get_Event_Status				KEYWORD2
-Get_FIFO_Num_Samples			KEYWORD2
-Set_FIFO_Mode					KEYWORD2
-ReadReg							KEYWORD2
-WriteReg						KEYWORD2
+begin                           KEYWORD2
+end                             KEYWORD2
+Enable_X                        KEYWORD2
+Disable_X                       KEYWORD2
+ReadID                          KEYWORD2
+Get_X_Axes                      KEYWORD2
+Get_X_Sensitivity               KEYWORD2
+Get_X_AxesRaw                   KEYWORD2
+Get_X_ODR                       KEYWORD2
+Set_X_ODR                       KEYWORD2
+Set_X_ODR_With_Mode             KEYWORD2
+Get_X_FS                        KEYWORD2
+Set_X_FS                        KEYWORD2
+Get_X_DRDY_Status               KEYWORD2
+Get_FIFO_Num_Samples            KEYWORD2
+Get_FIFO_Full_Status            KEYWORD2
+Get_FIFO_Overrun_Status         KEYWORD2
+Get_FIFO_Watermark_Status       KEYWORD2
+Set_FIFO_INT1_FIFO_Full         KEYWORD2
+Set_FIFO_INT1_FIFO_Overrun      KEYWORD2
+Set_FIFO_INT1_FIFO_Threshold    KEYWORD2
+Set_FIFO_INT2_FIFO_Full         KEYWORD2
+Set_FIFO_INT2_FIFO_Overrun      KEYWORD2
+Set_FIFO_INT2_FIFO_Threshold    KEYWORD2
+Set_FIFO_Watermark_Level        KEYWORD2
+Set_FIFO_Stop_On_Fth            KEYWORD2
+Set_FIFO_Mode                   KEYWORD2
+Get_FIFO_Tag                    KEYWORD2
+Get_FIFO_X_Axes                 KEYWORD2
+Set_FIFO_X_BDR                  KEYWORD2
+Get_X_Event_Status              KEYWORD2
+Enable_Wake_Up_Detection        KEYWORD2
+Disable_Wake_Up_Detection       KEYWORD2
+Set_Wake_Up_Threshold           KEYWORD2
+Set_Wake_Up_Duration            KEYWORD2
+Enable_6D_Orientation           KEYWORD2
+Disable_6D_Orientation          KEYWORD2
+Set_6D_Orientation_Threshold    KEYWORD2
+Get_6D_Orientation_XL           KEYWORD2
+Get_6D_Orientation_XH           KEYWORD2
+Get_6D_Orientation_YL           KEYWORD2
+Get_6D_Orientation_YH           KEYWORD2
+Get_6D_Orientation_ZL           KEYWORD2
+Get_6D_Orientation_ZH           KEYWORD2
+Enable_Free_Fall_Detection      KEYWORD2
+Disable_Free_Fall_Detection     KEYWORD2
+Set_Free_Fall_Threshold         KEYWORD2
+Set_Free_Fall_Duration          KEYWORD2
+Enable_Single_Tap_Detection     KEYWORD2
+Disable_Single_Tap_Detection    KEYWORD2
+Enable_Double_Tap_Detection     KEYWORD2
+Disable_Double_Tap_Detection    KEYWORD2
+Enable_Triple_Tap_Detection     KEYWORD2
+Disable_Triple_Tap_Detection    KEYWORD2
+Set_Tap_Configuration           KEYWORD2
+Get_Tap_Configuration           KEYWORD2
+Enable_Tilt_Detection           KEYWORD2
+Disable_Tilt_Detection          KEYWORD2
+Enable_Pedometer                KEYWORD2
+Disable_Pedometer               KEYWORD2
+Get_Step_Count                  KEYWORD2
+Step_Counter_Reset              KEYWORD2
+Enable_QVAR                     KEYWORD2
+Disable_QVAR                    KEYWORD2
+Get_QVAR_Status                 KEYWORD2
+Get_QVAR_Data                   KEYWORD2
+Get_QVAR_Impedance              KEYWORD2
+Set_QVAR_Impedance              KEYWORD2
+Get_QVAR_Gain                   KEYWORD2
+Set_QVAR_Gain                   KEYWORD2
+Get_MLC_Status                  KEYWORD2
+Get_MLC_Output                  KEYWORD2
+Read_Reg                        KEYWORD2
+Write_Reg                       KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_2G_LOPOW1_MODE		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_2G_OTHER_MODES		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_4G_LOPOW1_MODE		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_4G_OTHER_MODES		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_8G_LOPOW1_MODE		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_8G_OTHER_MODES		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_16G_LOPOW1_MODE		LITERAL1
-LIS2DW12_ACC_SENSITIVITY_FOR_FS_16G_OTHER_MODES		LITERAL1
+LIS2DUXS12_I2C_BUS                  LITERAL1
+LIS2DUXS12_SPI_4WIRES_BUS           LITERAL1
+LIS2DUXS12_SPI_3WIRES_BUS           LITERAL1
+LIS2DUXS12_I3C_BUS                  LITERAL1
+LIS2DUXS12_X_SENSITIVITY_FOR_FS_2G  LITERAL1
+LIS2DUXS12_X_SENSITIVITY_FOR_FS_4G  LITERAL1
+LIS2DUXS12_X_SENSITIVITY_FOR_FS_8G  LITERAL1
+LIS2DUXS12_X_SENSITIVITY_FOR_FS_16G LITERAL1
