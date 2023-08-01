@@ -61,13 +61,6 @@
 #define LIS2DUXS12_X_SENSITIVITY_FOR_FS_8G   0.244f  /**< Sensitivity value for 8g full scale, Low-power1 mode [mg/LSB] */
 #define LIS2DUXS12_X_SENSITIVITY_FOR_FS_16G  0.488f  /**< Sensitivity value for 16g full scale, Low-power1 mode [mg/LSB] */
 
-#define LIS2DUXS12_QVAR_GAIN  74.4f  /**< Gain value for bits AH_QVAR_GAIN_[1:0] == 1 in AH_QVAR_CFG register, 16 bits [LSB/mV] */
-
-#define LIS2DUXS12_QVAR_GAIN_MULTIPL_0_5X  0.5f  /**< Gain multiplier for bits AH_QVAR_GAIN_[1:0] == 0 in AH_QVAR_CFG register [-] */
-#define LIS2DUXS12_QVAR_GAIN_MULTIPL_1X    1.0f  /**< Gain multiplier for bits AH_QVAR_GAIN_[1:0] == 1 in AH_QVAR_CFG register [-] */
-#define LIS2DUXS12_QVAR_GAIN_MULTIPL_2X    2.0f  /**< Gain multiplier for bits AH_QVAR_GAIN_[1:0] == 2 in AH_QVAR_CFG register [-] */
-#define LIS2DUXS12_QVAR_GAIN_MULTIPL_4X    4.0f  /**< Gain multiplier for bits AH_QVAR_GAIN_[1:0] == 3 in AH_QVAR_CFG register [-] */
-
 /* Typedefs ------------------------------------------------------------------*/
 typedef enum {
   LIS2DUXS12_STATUS_OK = 0,
@@ -162,7 +155,7 @@ class LIS2DUXS12Sensor {
     LIS2DUXS12StatusTypeDef Get_X_FS(int32_t *full_scale);
     LIS2DUXS12StatusTypeDef Set_X_FS(int32_t full_scale);
 
-    LIS2DUXS12StatusTypeDef LIS2DUXS12_X_Get_DRDY_Status(uint8_t *val);
+    LIS2DUXS12StatusTypeDef Get_X_DRDY_Status(uint8_t *val);
 
     LIS2DUXS12StatusTypeDef Get_FIFO_Num_Samples(uint16_t *NumSamples);
     LIS2DUXS12StatusTypeDef Get_FIFO_Full_Status(uint8_t *Status);

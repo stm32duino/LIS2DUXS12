@@ -579,9 +579,8 @@ LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::Set_X_FS(int32_t FullScale)
  * @param  val pointer where the value is written
  * @retval 0 in case of success, an error code otherwise
  */
-LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::LIS2DUXS12_X_Get_DRDY_Status(uint8_t *val)
+LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::Get_X_DRDY_Status(uint8_t *val)
 {
-
   lis2duxs12_status_register_t status;
   if (lis2duxs12_read_reg(&reg_ctx, LIS2DUXS12_STATUS, (uint8_t *)&status, 1) != LIS2DUXS12_STATUS_OK) {
     return LIS2DUXS12_STATUS_ERROR;
