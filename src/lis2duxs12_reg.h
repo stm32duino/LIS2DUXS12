@@ -100,33 +100,6 @@ typedef struct {
 #define PROPERTY_DISABLE                (0U)
 #define PROPERTY_ENABLE                 (1U)
 
-/** @addtogroup  Interfaces_Functions
-  * @brief       This section provide a set of functions used to read and
-  *              write a generic register of the device.
-  *              MANDATORY: return 0 -> no Error.
-  * @{
-  *
-  */
-
-typedef int32_t (*lis2duxs12_write_ptr)(void *, uint8_t, uint8_t *, uint16_t);
-typedef int32_t (*lis2duxs12_read_ptr)(void *, uint8_t, uint8_t *, uint16_t);
-typedef void (*lis2duxs12_mdelay_ptr)(uint32_t millisec);
-
-typedef struct {
-  /** Component mandatory fields **/
-  lis2duxs12_write_ptr  write_reg;
-  lis2duxs12_read_ptr   read_reg;
-  /** Component optional fields **/
-  lis2duxs12_mdelay_ptr   mdelay;
-  /** Customizable optional pointer **/
-  void *handle;
-} lis2duxs12_ctx_t;
-
-/**
-  * @}
-  *
-  */
-
 #endif /* MEMS_SHARED_TYPES */
 
 #ifndef MEMS_UCF_SHARED_TYPES
@@ -159,7 +132,32 @@ typedef struct {
   * @}
   *
   */
+/** @addtogroup  LIS2DUXS12_Interfaces_Functions
+  * @brief       This section provide a set of functions used to read and
+  *              write a generic register of the device.
+  *              MANDATORY: return 0 -> no Error.
+  * @{
+  *
+  */
 
+typedef int32_t (*lis2duxs12_write_ptr)(void *, uint8_t, uint8_t *, uint16_t);
+typedef int32_t (*lis2duxs12_read_ptr)(void *, uint8_t, uint8_t *, uint16_t);
+typedef void (*lis2duxs12_mdelay_ptr)(uint32_t millisec);
+
+typedef struct {
+  /** Component mandatory fields **/
+  lis2duxs12_write_ptr  write_reg;
+  lis2duxs12_read_ptr   read_reg;
+  /** Component optional fields **/
+  lis2duxs12_mdelay_ptr   mdelay;
+  /** Customizable optional pointer **/
+  void *handle;
+} lis2duxs12_ctx_t;
+
+/**
+  * @}
+  *
+  */
 /** @defgroup LIS2DUXS12_Infos
   * @{
   *
