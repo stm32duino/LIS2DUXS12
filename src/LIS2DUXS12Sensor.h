@@ -50,6 +50,12 @@
 #include "lis2duxs12_reg.h"
 
 /* Defines -------------------------------------------------------------------*/
+/* For compatibility with ESP32 platforms */
+#ifdef ESP32
+  #ifndef MSBFIRST
+    #define MSBFIRST SPI_MSBFIRST
+  #endif
+#endif
 
 #define LIS2DUXS12_I2C_BUS                 0U
 #define LIS2DUXS12_SPI_4WIRES_BUS          1U
