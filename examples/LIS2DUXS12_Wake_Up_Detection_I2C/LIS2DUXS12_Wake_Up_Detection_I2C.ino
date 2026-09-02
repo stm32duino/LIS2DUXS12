@@ -1,7 +1,7 @@
 /*
-   @file    LIS2DUXS12_Free_Fall_Detection.ino
-   @author  STMicroelectronics  
-   @brief   Example to use the LIS2DUXS12 Free Fall Detection
+   @file    LIS2DUXS12_Wake_Up_Detection_I2C.ino
+   @author  STMicroelectronics
+   @brief   Example to use the LIS2DUXS12 Wake Up Detection
  *******************************************************************************
    Copyright (c) 2022, STMicroelectronics
    All rights reserved.
@@ -11,6 +11,8 @@
                           opensource.org/licenses/BSD-3-Clause
  *******************************************************************************
 */
+
+
 #include <LIS2DUXS12Sensor.h>
 
 #define INT1_pin A3
@@ -19,8 +21,8 @@ LIS2DUXS12Sensor LIS2DUXS12(&Wire);
 
 //Interrupts.
 volatile int mems_event = 0;
-void INT1Event_cb();
 
+void INT1Event_cb();
 
 void setup() {
 
@@ -41,8 +43,8 @@ void setup() {
   LIS2DUXS12.begin();
   LIS2DUXS12.Enable_X();
 
-  // Enable Free Fall Detection.
-  LIS2DUXS12.Enable_Free_Fall_Detection(LIS2DUXS12_INT1_PIN);
+  // Enable Wake Up Detection.
+  LIS2DUXS12.Enable_Wake_Up_Detection(LIS2DUXS12_INT1_PIN);
 }
 
 void loop() {
@@ -51,14 +53,14 @@ void loop() {
     mems_event = 0;
     LIS2DUXS12_Event_Status_t status;
     LIS2DUXS12.Get_X_Event_Status(&status);
-
-    if (status.FreeFallStatus)
+    if (status.WakeUpStatus)
     {
       // Led blinking.
       digitalWrite(LED_BUILTIN, HIGH);
       delay(100);
       digitalWrite(LED_BUILTIN, LOW);
-      Serial.println("Free Fall Detected!");
+      
+      Serial.println("Wake up Detected!");
     }
   }
 }

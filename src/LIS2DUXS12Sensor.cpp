@@ -1,9 +1,9 @@
 /**
  ******************************************************************************
  * @file    LIS2DUXS12Sensor.cpp
- * @author  CLab
- * @version V1.0.0
- * @date    15 November 2018
+ * @author  STMicroelectronics
+ * @version V1.1.0
+ * @date    September 2026
  * @brief   Implementation of an LIS2DUXS12 Inertial Measurement Unit (IMU) 3 axes
  *          sensor.
  ******************************************************************************
@@ -46,11 +46,16 @@
 LIS2DUXS12Sensor::LIS2DUXS12Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), address(address)
 {
   dev_spi = NULL;
+#if defined(I3C_SUPPORTED)
+  dev_i3c = NULL;
+#endif
+  bus_type = LIS2DUXS12_I2C_BUS;
   reg_ctx.write_reg = LIS2DUXS12_io_write;
   reg_ctx.read_reg = LIS2DUXS12_io_read;
   reg_ctx.handle = (void *)this;
   X_isInitialized = 0;
   X_isEnabled = 0;
+
 }
 
 /** Constructor
@@ -64,11 +69,45 @@ LIS2DUXS12Sensor::LIS2DUXS12Sensor(SPIClass *spi, int cs_pin, uint32_t spi_speed
   reg_ctx.read_reg = LIS2DUXS12_io_read;
   reg_ctx.handle = (void *)this;
   dev_i2c = NULL;
+#if defined(I3C_SUPPORTED)
+  dev_i3c = NULL;
+#endif
   address = 0;
   X_isInitialized = 0;
+  bus_type = LIS2DUXS12_SPI_4WIRES_BUS;
   X_isEnabled = 0;
 }
 
+#if defined(I3C_SUPPORTED)
+LIS2DUXS12Sensor::LIS2DUXS12Sensor(I3CBus *i3c, uint8_t static_addr7)
+{
+  reg_ctx.write_reg = LIS2DUXS12_io_write;
+  reg_ctx.read_reg = LIS2DUXS12_io_read;
+  reg_ctx.handle = (void *)this;
+
+  dev_i2c = NULL;
+  dev_spi = NULL;
+  dev_i3c = i3c;
+
+  address = static_addr7;
+  i3c_static7 = static_addr7;
+  i3c_dyn7 = 0;
+
+  bus_type = LIS2DUXS12_I3C_BUS;
+  X_isEnabled = 0L;
+  X_isInitialized = 0U;
+}
+
+uint8_t LIS2DUXS12Sensor::getStaticAddress() const
+{
+  return i3c_static7;
+}
+
+uint8_t LIS2DUXS12Sensor::getDynAddress() const
+{
+  return i3c_dyn7;
+}
+#endif
 /**
   * @brief  Exit from deep power down in SPI
   * @param  pObj the device pObj
@@ -102,8 +141,9 @@ LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor:: ExitDeepPowerDownI2C(void)
  * @brief  Configure the sensor in order to be used
  * @retval 0 in case of success, an error code otherwise
  */
-LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::begin()
+LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::begin(uint8_t new_address)
 {
+  uint8_t id = 0;
   if (dev_spi) {
     // Configure CS pin
     pinMode(cs_pin, OUTPUT);
@@ -115,6 +155,21 @@ LIS2DUXS12StatusTypeDef LIS2DUXS12Sensor::begin()
     /* Exit from deep power down only the first time in I2C mode */
     ExitDeepPowerDownI2C();
   }
+#if defined(I3C_SUPPORTED)
+  if (dev_i3c != nullptr) {
+    if (new_address < 0x08 || new_address > 0x77) {
+      return LIS2DUXS12_STATUS_ERROR;
+    } else {
+      address = new_address;
+      i3c_dyn7 = new_address;
+    }
+    uint8_t id = 0;
+    if (ReadID(&id) != LIS2DUXS12_STATUS_OK || id != LIS2DUXS12_ID) {
+      return LIS2DUXS12_STATUS_ERROR;
+    }
+  }
+#endif
+
   /* Enable register address automatically incremented during a multiple byte
   access with a serial interface. Enable BDU. */
   if (lis2duxs12_init_set(&(reg_ctx), LIS2DUXS12_SENSOR_ONLY_ON) != LIS2DUXS12_STATUS_OK) {

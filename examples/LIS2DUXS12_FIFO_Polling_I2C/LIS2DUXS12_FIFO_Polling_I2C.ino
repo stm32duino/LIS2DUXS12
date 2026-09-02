@@ -1,7 +1,7 @@
 /*
-   @file    LIS2DUXS12_FIFO_Interrupt.ino
+   @file    LIS2DUXS12_FIFO_Polling_I2C.ino
    @author  STMicroelectronics
-   @brief   Example to use the LIS2DUXS12 library with FIFO status interrupts.
+   @brief   Example to use the LIS2DUXS12 library with FIFO status in polling mode.
  *******************************************************************************
    Copyright (c) 2022, STMicroelectronics
    All rights reserved.
@@ -15,13 +15,12 @@
 */
 #include <LIS2DUXS12Sensor.h>
 
-#define SENSOR_ODR 120.0f // In Hertz
+#define SENSOR_ODR 100.0f // In Hertz
 #define ACC_FS 2 // In g
+#define MEASUREMENT_TIME_INTERVAL (100000.0f/SENSOR_ODR) // In ms
 #define FIFO_SAMPLE_THRESHOLD 30
-#define INT1_pin A3 // MCU input pin connected to sensor INT1 output pin 
 
 LIS2DUXS12Sensor LIS2DUXS12(&Wire);
-volatile uint8_t fullFlag = 0; // FIFO full flag
 uint8_t status = 0;
 int32_t acc_value[3];
 
@@ -31,10 +30,7 @@ void setup() {
   
   Serial.begin(115200);
   Wire.begin();
-
-  // Enable INT1 pin.
-  attachInterrupt(INT1_pin, INT1_fullEvent_cb, RISING);
-  
+    
   // Initialize LIS2DUXS12.
   LIS2DUXS12.begin();
   status |= LIS2DUXS12.Enable_X();  
@@ -43,15 +39,12 @@ void setup() {
   status |= LIS2DUXS12.Set_X_FS(ACC_FS);
   // Configure FIFO BDR
   status |= LIS2DUXS12.Set_FIFO_X_BDR(LIS2DUXS12_BDR_XL_ODR);
-  // Set FIFO in Continuous mode
-  status |= LIS2DUXS12.Set_FIFO_Mode(LIS2DUXS12_STREAM_MODE);      
   // Set FIFO watermark level
   status |= LIS2DUXS12.Set_FIFO_Watermark_Level(FIFO_SAMPLE_THRESHOLD);
   // Set FIFO stop on watermark level
   status |= LIS2DUXS12.Set_FIFO_Stop_On_Fth(1);
-  // Set INT1 to FIFO watermark
-  status |= LIS2DUXS12.Set_FIFO_INT1_FIFO_Threshold(1); 
-  
+  // Set FIFO in Continuous mode
+  status |= LIS2DUXS12.Set_FIFO_Mode(LIS2DUXS12_STREAM_MODE);   
   if(status != 0) {
     Serial.println("LIS2DUXS12 Sensor failed to init/configure");
     while(1);
@@ -62,21 +55,18 @@ void setup() {
 void loop() {
   uint8_t fullStatus = 0;
   // If we reach the threshold we can empty the FIFO
-  if (fullFlag) {
-    fullFlag = 0;
-    if(LIS2DUXS12.Get_FIFO_Watermark_Status(&fullStatus) != 0){
+  if(LIS2DUXS12.Get_FIFO_Watermark_Status(&fullStatus) != 0){
       Serial.println("LIS2DUXS12 Sensor failed to get full status");
       while(1);
-    }
-
-    if(fullStatus) {
-      fullStatus = 0;
-      // Empty the FIFO
-      Read_FIFO_Data();
-
-    }
   }
+  if(fullStatus) {
+    fullStatus = 0;
+    // Empty the FIFO
+    Read_FIFO_Data();
+  }
+  delay(MEASUREMENT_TIME_INTERVAL);
 }
+
 
 void Read_FIFO_Data()
 {
@@ -119,9 +109,4 @@ void Read_FIFO_Data()
         }
     }
   }
-}
-
-// ISR callback for INT1
-void INT1_fullEvent_cb() {
-  fullFlag = 1;
 }

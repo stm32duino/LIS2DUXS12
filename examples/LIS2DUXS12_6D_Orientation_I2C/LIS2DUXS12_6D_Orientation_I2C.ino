@@ -1,5 +1,5 @@
 /*
-   @file    LIS2DUXS12_6D_Orientation.ino
+   @file    LIS2DUXS12_6D_Orientation_I2C.ino
    @author  STMicroelectronics  
    @brief   Example to use the LIS2DUXS12 6D Orientation
  *******************************************************************************

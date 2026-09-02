@@ -1,5 +1,5 @@
 /*
-   @file    LIS2DUXS12_DataLog_Terminal.ino
+   @file    LIS2DUXS12_DataLog_Terminal_I2C.ino
    @author  STMicroelectronics
    @brief   Example to use the LIS2DUXS12 inertial measurement sensor
  *******************************************************************************

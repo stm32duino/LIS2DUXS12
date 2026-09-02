@@ -1,5 +1,5 @@
 /*
-   @file    LIS2DUXS12_MLC.ino
+   @file    LIS2DUXS12_MLC_I2C.ino
    @author  STMicroelectronics
    @brief   Example to use the LIS2DUXS12 Machine Learning Core
  *******************************************************************************

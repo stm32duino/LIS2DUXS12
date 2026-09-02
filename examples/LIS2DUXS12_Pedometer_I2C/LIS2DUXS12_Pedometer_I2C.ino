@@ -1,7 +1,7 @@
 /*
-   @file    LIS2DUXS12_Triple_Tap_Detection.ino
+   @file    LIS2DUXS12_Pedometer_I2C.ino
    @author  STMicroelectronics  
-   @brief   Example to use the LIS2DUXS12 Triple Tap Detection
+   @brief   Example to use the LIS2DUXS12 Pedometer
  *******************************************************************************
    Copyright (c) 2022, STMicroelectronics
    All rights reserved.
@@ -19,7 +19,12 @@ LIS2DUXS12Sensor LIS2DUXS12(&Wire);
 
 //Interrupts.
 volatile int mems_event = 0;
+uint16_t step_count = 0;
+uint32_t previous_tick;
+char report[256];
+
 void INT1Event_cb();
+
 
 void setup() {
 
@@ -35,13 +40,15 @@ void setup() {
 
   // Enable INT1 pin.
   attachInterrupt(INT1_pin, INT1Event_cb, RISING);
-
+    
   // Initlialize components.
   LIS2DUXS12.begin();
   LIS2DUXS12.Enable_X();
 
-  // Enable Triple Tap Detection.
-  LIS2DUXS12.Enable_Triple_Tap_Detection(LIS2DUXS12_INT1_PIN);
+  // Enable Pedometer.
+  LIS2DUXS12.Enable_Pedometer(LIS2DUXS12_INT1_PIN);
+
+  previous_tick = millis();
 }
 
 void loop() {
@@ -51,15 +58,28 @@ void loop() {
     LIS2DUXS12_Event_Status_t status;
     LIS2DUXS12.Get_X_Event_Status(&status);
 
-    if (status.TripleTapStatus)
+    if (status.StepStatus)
     {
       // Led blinking.
       digitalWrite(LED_BUILTIN, HIGH);
       delay(100);
       digitalWrite(LED_BUILTIN, LOW);
-      Serial.println("Triple Tap Detected!");
+
+      LIS2DUXS12.Get_Step_Count(&step_count);
+      snprintf(report, sizeof(report), "Step counter: %d", step_count);
+      Serial.println(report);
     }
   }
+  // Print the step counter in any case every 3000 ms
+  uint32_t current_tick = millis();
+  if((current_tick - previous_tick) >= 3000)
+  {
+    LIS2DUXS12.Get_Step_Count(&step_count);
+    snprintf(report, sizeof(report), "Step counter: %d", step_count);
+    Serial.println(report);
+    previous_tick = millis();
+  }
+
 }
 
 void INT1Event_cb()

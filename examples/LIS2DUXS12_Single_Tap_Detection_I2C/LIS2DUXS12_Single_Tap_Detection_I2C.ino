@@ -1,5 +1,5 @@
 /*
-   @file    LIS2DUXS12_Single_Tap_Detection.ino
+   @file    LIS2DUXS12_Single_Tap_Detection_I2C.ino
    @author  STMicroelectronics  
    @brief   Example to use the LIS2DUXS12 Single Tap Detection
  *******************************************************************************

@@ -1,7 +1,7 @@
 /*
-   @file    LIS2DUXS12_Tilt_Detection.ino
-   @author  STMicroelectronics     
-   @brief   Example to use the LIS2DUXS12 Tilt Detection
+   @file    LIS2DUXS12_Triple_Tap_Detection_I2C.ino
+   @author  STMicroelectronics  
+   @brief   Example to use the LIS2DUXS12 Triple Tap Detection
  *******************************************************************************
    Copyright (c) 2022, STMicroelectronics
    All rights reserved.
@@ -19,7 +19,6 @@ LIS2DUXS12Sensor LIS2DUXS12(&Wire);
 
 //Interrupts.
 volatile int mems_event = 0;
-
 void INT1Event_cb();
 
 void setup() {
@@ -36,13 +35,13 @@ void setup() {
 
   // Enable INT1 pin.
   attachInterrupt(INT1_pin, INT1Event_cb, RISING);
-    
+
   // Initlialize components.
   LIS2DUXS12.begin();
   LIS2DUXS12.Enable_X();
 
-  // Enable Tilt Detection.
-  LIS2DUXS12.Enable_Tilt_Detection(LIS2DUXS12_INT1_PIN);
+  // Enable Triple Tap Detection.
+  LIS2DUXS12.Enable_Triple_Tap_Detection(LIS2DUXS12_INT1_PIN);
 }
 
 void loop() {
@@ -52,13 +51,13 @@ void loop() {
     LIS2DUXS12_Event_Status_t status;
     LIS2DUXS12.Get_X_Event_Status(&status);
 
-    if (status.TiltStatus)
+    if (status.TripleTapStatus)
     {
       // Led blinking.
       digitalWrite(LED_BUILTIN, HIGH);
       delay(100);
       digitalWrite(LED_BUILTIN, LOW);
-      Serial.println("Tilt Detected!");
+      Serial.println("Triple Tap Detected!");
     }
   }
 }

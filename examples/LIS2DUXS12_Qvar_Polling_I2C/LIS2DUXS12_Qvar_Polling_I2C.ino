@@ -1,5 +1,5 @@
 /*
-   @file    LIS2DUXS12_Qvar.ino
+   @file    LIS2DUXS12_Qvar_Polling_I2C.ino
    @author  STMicroelectronics
    @brief   Example to use LIS2DUXS12 Qvar features
  *******************************************************************************

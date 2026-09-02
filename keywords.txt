@@ -86,7 +86,8 @@ Get_MLC_Status                  KEYWORD2
 Get_MLC_Output                  KEYWORD2
 Read_Reg                        KEYWORD2
 Write_Reg                       KEYWORD2
-
+getStaticAddress	KEYWORD2
+getDynAddress	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
