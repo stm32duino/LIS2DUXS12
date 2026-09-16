@@ -29,6 +29,7 @@ An instance can be created and enabled when the SPI bus is used following the pr
 An instance can be created and enabled when the I3C bus is used with SETDASA (static-to-dynamic address assignment):  
     LIS2DUXS12Sensor Accelero(&I3C, LIS2DUXS12_I3C_ADD_H);
     I3C.resetDynamicAddresses();
+    I3C.isI3CDeviceReady(0x19);
     I3C.assignDynamicAddress(Accelero.getStaticAddress(), LIS2DUXS12_DYNAMIC_ADDRESS);
     Accelero.begin(LIS2DUXS12_DYNAMIC_ADDRESS);
     I3C.setClock(12500000);
@@ -38,6 +39,7 @@ An instance can be created and enabled when the I3C bus is used with ENTDAA (dyn
 
     LIS2DUXS12Sensor Accelero(&I3C);
     I3C.begin(I3C_SDA, I3C_SCL, 1000000U);
+    I3C.isI3CDeviceReady(0x19);
     I3C.discover(devices, 8, &found);
     // find dynAddr by matching LIS2DUXS12_I3C_PID_H in discovered devices
     Accelero.begin(dynAddr);

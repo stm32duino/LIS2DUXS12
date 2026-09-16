@@ -2,7 +2,7 @@
  ******************************************************************************
  * @file    LIS2DUXS12Sensor.h
  * @author  STMicroelectronics
- * @version V1.1.0
+ * @version V1.1.1
  * @date    September 2026
  * @brief   Abstract Class of an LIS2DUXS12 Inertial Measurement Unit (IMU) 3 axes
  *          sensor.

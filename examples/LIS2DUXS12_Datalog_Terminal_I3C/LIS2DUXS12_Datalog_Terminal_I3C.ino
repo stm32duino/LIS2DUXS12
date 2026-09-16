@@ -36,6 +36,12 @@ void setup()
     Serial.println("resetDynamicAddresses() failed");
     while (1) {}
   }
+  
+  if (!I3C.isI3CDeviceReady(0x19)) {
+    Serial.println("isI3CDeviceReady() failed");
+    while (1) {}
+  }
+  
   if (!I3C.assignDynamicAddress(sensor.getStaticAddress(), LIS2DUXS12_DYNAMIC_ADDRESS)) {
     Serial.println("assignDynamicAddress() failed");
     while (1) {}
