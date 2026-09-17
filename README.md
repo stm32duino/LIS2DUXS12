@@ -26,7 +26,8 @@ An instance can be created and enabled when the SPI bus is used following the pr
     Accelero.begin();
     Accelero.Enable_X();
 
-An instance can be created and enabled when the I3C bus is used with SETDASA (static-to-dynamic address assignment):  
+An instance can be created and enabled when the I3C bus is used with SETDASA (static-to-dynamic address assignment): 
+ 
     LIS2DUXS12Sensor Accelero(&I3C, LIS2DUXS12_I3C_ADD_H);
     I3C.resetDynamicAddresses();
     I3C.isI3CDeviceReady(0x19);
