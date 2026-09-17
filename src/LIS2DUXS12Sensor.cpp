@@ -2,7 +2,7 @@
  ******************************************************************************
  * @file    LIS2DUXS12Sensor.cpp
  * @author  STMicroelectronics
- * @version V1.1.1
+ * @version V1.1.0
  * @date    September 2026
  * @brief   Implementation of an LIS2DUXS12 Inertial Measurement Unit (IMU) 3 axes
  *          sensor.
